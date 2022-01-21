@@ -5,6 +5,7 @@ const { decodeBase64 } = require('bcryptjs');
 const express = require('express');
 const morgan = require('morgan');
 const sequelize = require('sequelize');
+const cors = require('cors');
 
 const db = require('./models');
 
@@ -13,6 +14,9 @@ const enableGlobalErrorLogging = process.env.ENABLE_GLOBAL_ERROR_LOGGING === 'tr
 
 // create the Express app
 const app = express();
+
+// set up cors 
+app.use(cors())
 
 // setup request body JSON parsing 
 app.use(express.json());
