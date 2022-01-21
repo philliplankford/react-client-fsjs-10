@@ -4,40 +4,39 @@ export default class CourseDetail extends Component {
     render () {
 
         return (
-            // header
-            <main>
-                <div class="actions--bar">
-                    <div class="wrap">
-                        <a class="button" href="/">Update Course</a>
-                        <a class="button" href="/">Delete Course</a>
-                        <a class="button button-secondary" href="/">Return to List</a>
+            <React.Fragment>
+                <div className="actions--bar">
+                    <div className="wrap">
+                        <a className="button" href="/">Update Course</a>
+                        <a className="button" href="/">Delete Course</a>
+                        <a className="button button-secondary" href="/">Return to List</a>
                     </div>
                 </div>
 
-                <div class="wrap">
+                <div className="wrap">
                     <h2>Course Detail</h2>
                     <form>
-                        <div class="main--flex">
+                        <div className="main--flex">
                             <div>
-                                <h3 class="course--detail--title">Course</h3>
-                                <h4 class="course--name">Course Name</h4>
+                                <h3 className="course--detail--title">Course</h3>
+                                <h4 className="course--name">Course Name</h4>
                                 <p>By Author</p>
 
                                 <p>Description</p>
                             </div>
                             <div>
-                                <h3 class="course--detail--title">Estimated Time</h3>
+                                <h3 className="course--detail--title">Estimated Time</h3>
                                 <p>Time</p>
 
-                                <h3 class="course--detail--title">Material Needed</h3>
-                                <ul class="course--detail--list">
+                                <h3 className="course--detail--title">Material Needed</h3>
+                                <ul className="course--detail--list">
                                     <li>Item</li>
                                 </ul>
                             </div>
                         </div>
                     </form>
                 </div>
-            </main>
+            </React.Fragment>
         )
     }
 }

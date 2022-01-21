@@ -3,18 +3,17 @@ import React, { Component } from 'react';
 export default class UpdateCourse extends Component {
     render () {
         return (
-            //header 
-            <main>
-                <div class="wrap">
+            <React.Fragment>
+                <div className="wrap">
                     <h2>Update Course</h2>
-                    <div class="validation--errors">
+                    <div className="validation--errors">
                         <h3>Validation Errors</h3>
                         <ul>
                             <li>Error</li>
                         </ul>
                     </div>
                     <form>
-                        <div class="main--flex">
+                        <div className="main--flex">
                             <div>
                                 <label for="courseTitle">Course Title</label>
                                 <input id="courseTitle" name="courseTitle" type="text" value=""></input>
@@ -31,12 +30,12 @@ export default class UpdateCourse extends Component {
                                 <textarea id="materialsNeeded" name="materialsNeeded"></textarea>
                             </div>
                         </div>
-                        <button class="button" type="submit">Update Course</button>
-                        <button class="button button-secondary" onclick="event.preventDefault(); location.href='/';">Cancel</button>
+                        <button className="button" type="submit">Update Course</button>
+                        <button className="button button-secondary" onclick="event.preventDefault(); location.href='/';">Cancel</button>
                     </form>
 
                 </div>
-            </main>
+            </React.Fragment>
         )
     }
 }
