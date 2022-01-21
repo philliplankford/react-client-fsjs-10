@@ -3,6 +3,22 @@ import logo from './logo.svg';
 import './styles/global.css';
 import axios from 'axios';
 
+// import components
+import Header from './components/Header';
+
+import Courses from './components/Courses';
+import CourseDetail from './components/CourseDetail';
+import CreateCourse from './components/CreateCourse';
+import UpdateCourse from './components/UpdateCourse';
+
+import UserSignOut from './components/UserSignOut';
+import UserSignIn from './components/UserSignIn';
+import UserSignUp from './components/UserSignUp';
+
+import Error from './components/Error';
+import Forbidden from './components/Forbidden';
+import NotFound from './components/NotFound';
+
 function App() {
 
   const apiUrl = 'http://localhost:5000/api/courses';
@@ -21,22 +37,12 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <body>
+      <div id="root">
+      {/** Header */}
+
+      </div>
+    </body>
   );
 }
 
