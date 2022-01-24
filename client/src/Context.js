@@ -58,7 +58,7 @@ export class Provider extends Component {
     }
 }
 
-export const Conumser = Context.Consumer;
+export const Consumer = Context.Consumer;
 
 // HoC 
 // Wraps components to subscribe them to context changes 

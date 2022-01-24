@@ -5,7 +5,7 @@ import {
   Routes,
   Route
 } from 'react-router-dom';
-import axios from 'axios';
+import withContext from './Context';
 
 // import components
 import Header from './components/Header';
@@ -23,37 +23,52 @@ import Error from './components/Error';
 import Forbidden from './components/Forbidden';
 import NotFound from './components/NotFound';
 
-// import { render } from 'react-dom'; unnecessary import?
-import Data from './Data';
-const data = new Data();
+// import Data from './Data';
+// const data = new Data();
+
+/* === CONTEXT SUBSCRIPTIONS === */
+// subscribe componenets to context 
+// Context keeps track of the authenticated user at the top level
+const HeaderWithContext = withContext(Header);
+
+// User Forms
+const UserSignUpWithContext = withContext(UserSignUp);
+const UserSignInWithContext = withContext(UserSignIn);
+const UserSignOutWithContext = withContext(UserSignOut);
+
+// Course Actions
+const CreateCourseWithContext = withContext(CreateCourse);
+const UpdateCourseWithContext = withContext(UpdateCourse);
+
+/* === APP === */
 
 function App () {
 
-  useEffect(() => {
-    getAllCourses();
-  }, [])
+  // useEffect(() => {
+  //   getAllCourses();
+  // }, [])
 
-  const getAllCourses = async () => {
-    const courses = await data.api('/courses');
-    console.log(courses);
-  }
+  // const getAllCourses = async () => {
+  //   const courses = await data.api('/courses');
+  //   console.log(courses);
+  // }
 
   return (
     <div id="root">
-      <Header />
+      <HeaderWithContext />
       <main>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Courses />} />
-            <Route path="signin" element={<UserSignIn />} />
-            <Route path="signup" element={<UserSignUp />} />
-            <Route path="signout" element={<UserSignOut />} />
+            <Route path="signin" element={<UserSignInWithContext />} />
+            <Route path="signup" element={<UserSignUpWithContext />} />
+            <Route path="signout" element={<UserSignOutWithContext />} />
             <Route path="courses">
               <Route path=":id" element={<CourseDetail />} >
-                <Route path="update" element={<UpdateCourse />} />
+                <Route path="update" element={<UpdateCourseWithContext />} />
                 <Route path="delete" element={<CourseDetail />} />
               </Route>
-              <Route path="create" element={<CreateCourse />} />
+              <Route path="create" element={<CreateCourseWithContext />} />
             </Route>
             <Route path="error" element={<Error />} />
             <Route path="forbidden" element={<Forbidden />} />
