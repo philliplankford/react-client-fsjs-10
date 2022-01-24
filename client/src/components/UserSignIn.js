@@ -14,7 +14,7 @@ export default class UserSignIn extends Component {
                         <label for="password">Password</label>
                         <input id="password" name="password" type="password" value=""></input>
                         <button className="button" type="submit">Sign In</button>
-                        <button className="button button-secondary" onclick="event.preventDefault(); location.href='/';"></button>
+                        <button className="button button-secondary" onClick="event.preventDefault(); location.href='/';"></button>
                     </form>
                     <p>Don't have a user account? Click <a href="/">here to sign up</a>!</p>
                 </div>
