@@ -1,4 +1,4 @@
-import { Component, useEffect } from 'react';
+import { Component, useEffect, useState } from 'react';
 import './styles/global.css';
 import {
   BrowserRouter,
@@ -22,6 +22,7 @@ import UserSignUp from './components/UserSignUp';
 import Error from './components/Error';
 import Forbidden from './components/Forbidden';
 import NotFound from './components/NotFound';
+import axios from 'axios';
 
 // import Data from './Data';
 // const data = new Data();
@@ -37,20 +38,35 @@ const UserSignInWithContext = withContext(UserSignIn);
 const UserSignOutWithContext = withContext(UserSignOut);
 
 // Course Actions
+const CoursesWithContext = withContext(Courses);
 const CreateCourseWithContext = withContext(CreateCourse);
 const UpdateCourseWithContext = withContext(UpdateCourse);
 
 /* === APP === */
 
 function App () {
+  // const [courses, setCourses] = useState([]);
 
   // useEffect(() => {
-  //   getAllCourses();
+  //   axios.get('http://localhost:5000/api/courses')
+  //     .then(response => { setCourses(response) })
+  //     .then( console.log(courses) )
+  // }, [])
+  // useEffect(() => {
+  //   let mounted = true;
+  //   axios.get('http://localhost:5000/api/courses')
+  //     .then(courses => {
+  //       if (mounted) {
+  //         setCourses(courses)
+  //       }
+  //     })
+  //     .then( console.log(courses) )
+  //   return () => mounted = false;
   // }, [])
 
-  // const getAllCourses = async () => {
-  //   const courses = await data.api('/courses');
-  //   console.log(courses);
+  // const fetchCourses = async () => {
+  //   const response = await axios.get('http://localhost:5000/api/courses');
+  //   setCourses(response);
   // }
 
   return (
@@ -59,7 +75,7 @@ function App () {
       <main>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Courses />} />
+            <Route path="/" element={<CoursesWithContext />} />
             <Route path="signin" element={<UserSignInWithContext />} />
             <Route path="signup" element={<UserSignUpWithContext />} />
             <Route path="signout" element={<UserSignOutWithContext />} />
