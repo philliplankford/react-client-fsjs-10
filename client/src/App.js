@@ -22,10 +22,6 @@ import UserSignUp from './components/UserSignUp';
 import Error from './components/Error';
 import Forbidden from './components/Forbidden';
 import NotFound from './components/NotFound';
-import axios from 'axios';
-
-// import Data from './Data';
-// const data = new Data();
 
 /* === CONTEXT SUBSCRIPTIONS === */
 // subscribe componenets to context 
@@ -45,29 +41,6 @@ const UpdateCourseWithContext = withContext(UpdateCourse);
 /* === APP === */
 
 function App () {
-  // const [courses, setCourses] = useState([]);
-
-  // useEffect(() => {
-  //   axios.get('http://localhost:5000/api/courses')
-  //     .then(response => { setCourses(response) })
-  //     .then( console.log(courses) )
-  // }, [])
-  // useEffect(() => {
-  //   let mounted = true;
-  //   axios.get('http://localhost:5000/api/courses')
-  //     .then(courses => {
-  //       if (mounted) {
-  //         setCourses(courses)
-  //       }
-  //     })
-  //     .then( console.log(courses) )
-  //   return () => mounted = false;
-  // }, [])
-
-  // const fetchCourses = async () => {
-  //   const response = await axios.get('http://localhost:5000/api/courses');
-  //   setCourses(response);
-  // }
 
   return (
     <div id="root">
