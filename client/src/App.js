@@ -46,9 +46,9 @@ function App () {
 
   return (
     <div id="root">
-      <HeaderWithContext />
-      <main>
-        <BrowserRouter>
+      <BrowserRouter>
+        <HeaderWithContext />
+        <main>
           <Routes>
             <Route path="/" element={<CoursesWithContext />} />
             <Route path="signin" element={<UserSignInWithContext />} />
@@ -65,8 +65,8 @@ function App () {
             <Route path="forbidden" element={<Forbidden />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
-        </BrowserRouter>
-      </main>
+        </main>
+      </BrowserRouter>
     </div>
   );
 }

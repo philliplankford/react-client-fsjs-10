@@ -1,28 +1,26 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-export default class Header extends Component {
-    render () {
+export default function Header() {
         return (
             <header>
                 <div className="wrap header--flex">
                     <h1 className="header--logo">
-                        <a href="/">Courses</a>
+                        <Link to="/Courses">Courses</Link>
                     </h1>
                     <nav>
                         {/** IF SIGNED OUT */}
                         <ul className="header--signedout">
-                            <li><a href="/">Sign Up</a></li>
-                            <li><a href="/">Sign In</a></li>
+                            <li><Link to="/signup">Sign Up</Link></li>
+                            <li><Link to="/signin">Sign In</Link></li>
                         </ul>
                         {/** IF SIGNED IN */}
                         <ul className="header--signedin">
                             <li>Welcome, Name!</li>
-                            <li><a href="/">Sign Out</a></li>
+                            <li><Link to="/signout">Sign Out</Link></li>
                         </ul>
                     </nav>
                 </div>
             </header>
         );
-    }
-
 }

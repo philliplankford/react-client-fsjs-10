@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 function Courses({ context }) {
-    const api = context.data.api;
     const [courses, setCourses] = useState([]);
 
     useEffect(() => {
+        const api = context.data.api;
 
         const fetchCourses = async () => {
             const response = await api('/courses');

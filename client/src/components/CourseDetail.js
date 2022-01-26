@@ -3,13 +3,13 @@ import { Link, useParams } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 
 function CourseDetail({ context }) {
-    const api = context.data.api;
     const { id } = useParams();
 
     const [ course, setCourse ] = useState(0);
 
     useEffect(() => {
-
+        const api = context.data.api;
+        
         const fetchCourse = async () => {
             const response = await api(`/courses/${id}`);
             setCourse(response.data);
