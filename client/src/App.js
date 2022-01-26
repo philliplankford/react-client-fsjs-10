@@ -1,4 +1,4 @@
-import { Component, useEffect, useState } from 'react';
+import React from 'react';
 import './styles/global.css';
 import {
   BrowserRouter,
@@ -6,6 +6,7 @@ import {
   Route
 } from 'react-router-dom';
 import withContext from './Context';
+import withNavigation from './Router';
 
 // import components
 import Header from './components/Header';
@@ -30,11 +31,12 @@ const HeaderWithContext = withContext(Header);
 
 // User Forms
 const UserSignUpWithContext = withContext(UserSignUp);
-const UserSignInWithContext = withContext(UserSignIn);
+const UserSignInWithContext = withNavigation(withContext(UserSignIn));
 const UserSignOutWithContext = withContext(UserSignOut);
 
 // Course Actions
 const CoursesWithContext = withContext(Courses);
+const CourseDetailWithContext = withContext(CourseDetail);
 const CreateCourseWithContext = withContext(CreateCourse);
 const UpdateCourseWithContext = withContext(UpdateCourse);
 
@@ -53,7 +55,7 @@ function App () {
             <Route path="signup" element={<UserSignUpWithContext />} />
             <Route path="signout" element={<UserSignOutWithContext />} />
             <Route path="courses">
-              <Route path=":id" element={<CourseDetail />} >
+              <Route path=":id" element={<CourseDetailWithContext />} >
                 <Route path="update" element={<UpdateCourseWithContext />} />
                 <Route path="delete" element={<CourseDetail />} />
               </Route>

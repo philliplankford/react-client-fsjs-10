@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import axios from 'axios';
 import ReactMarkdown from 'react-markdown';
 
-function CourseDetail() {
+function CourseDetail({ context }) {
+    const api = context.data.api;
     const { id } = useParams();
 
     const [ course, setCourse ] = useState(0);
@@ -11,7 +11,7 @@ function CourseDetail() {
     useEffect(() => {
 
         const fetchCourse = async () => {
-            const response = await axios.get(`/courses/${id}`);
+            const response = await api(`/courses/${id}`);
             setCourse(response.data);
         };
 
