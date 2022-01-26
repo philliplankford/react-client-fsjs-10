@@ -3,14 +3,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import Form from './Form';
 
 export default function UserSignIn({ context }) {
-    const [username, setUsername] = useState('');
+    const [emailaddress, setEmailAddress] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState([]);
 
     const navigate = useNavigate();
 
     const submit = () => {
-        context.actions.signIn(username, password)
+        context.actions.signIn(emailaddress, password)
             .then( user => {
                 if (user === null) {
                     setErrors([`Sign-in was unsuccessful`]); //setErrors({ errors: [`Sign-in was unsuccessful`]});
@@ -41,12 +41,12 @@ export default function UserSignIn({ context }) {
                     elements={() => (
                         <React.Fragment>
                             <input 
-                                id="username"
-                                name="username"
+                                id="emailAddress"
+                                name="emailAddress"
                                 type="text"
-                                value={username}
-                                onChange={e => setUsername(e.target.value)}
-                                placeholder="User Name"
+                                value={emailaddress}
+                                onChange={e => setEmailAddress(e.target.value)}
+                                placeholder="Email Address"
                             />
                             <input 
                                 id="password"

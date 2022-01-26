@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { Navigate } from 'react-router-dom';
 
-const UserSignOut = () => {
+function UserSignOut({ context }){
+  useEffect ( () => context.actions.signOut());
 
   return (
-    <div>Redirect</div>
+    <Navigate replace to="/" />
   );
 }
 
