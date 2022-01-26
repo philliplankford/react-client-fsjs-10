@@ -6,7 +6,6 @@ import {
   Route
 } from 'react-router-dom';
 import withContext from './Context';
-import withNavigation from './Router';
 
 // import components
 import Header from './components/Header';
@@ -31,7 +30,7 @@ const HeaderWithContext = withContext(Header);
 
 // User Forms
 const UserSignUpWithContext = withContext(UserSignUp);
-const UserSignInWithContext = withNavigation(withContext(UserSignIn));
+const UserSignInWithContext = withContext(UserSignIn);
 const UserSignOutWithContext = withContext(UserSignOut);
 
 // Course Actions
