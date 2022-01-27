@@ -19,7 +19,8 @@ export default function UserSignUp({ context }) {
             emailAddress,
             password,
         };
-
+        
+        // console.log(user);
         context.data.createUser(user)
             .then( errors => {
                 if (errors.length) {
@@ -27,9 +28,9 @@ export default function UserSignUp({ context }) {
                 } else {
                     context.actions.signIn(emailAddress, password)
                         .then(() => {
-                            navigate('/authenticated');
+                            navigate('/');
                         });
-                        console.log(`${emailAddress} is successfully signed up and authenticated`);
+                    console.log(`${emailAddress} is successfully signed up and authenticated`);
                 }
             })
             .catch (err => {
@@ -53,38 +54,46 @@ export default function UserSignUp({ context }) {
                     submitButtonText="Sign Up"
                     elements={() => (
                         <React.Fragment>
-                            <input 
-                                id="firstName"
-                                name="firstName"
-                                type="text"
-                                value={firstName}
-                                onChange={e => setFirstname(e.target.value)}
-                                placeholder="First Name"
-                            />
-                             <input 
-                                id="lastName"
-                                name="lastName"
-                                type="text"
-                                value={lastName}
-                                onChange={e => setLastname(e.target.value)}
-                                placeholder="Last Name"
-                            />
-                            <input 
-                                id="emailAddress"
-                                name="emailAddress"
-                                type="text"
-                                value={emailAddress}
-                                onChange={e => setEmailAddress(e.target.value)}
-                                placeholder="Email Address"
-                            />
-                            <input 
-                                id="password"
-                                name="password"
-                                type="password"
-                                value={password}
-                                onChange={e => setPassword(e.target.value)}
-                                placeholder="Password"
-                            />
+                            <label> First Name
+                                <input 
+                                    id="firstName"
+                                    name="firstName"
+                                    type="text"
+                                    value={firstName}
+                                    onChange={e => setFirstname(e.target.value)}
+                                    placeholder="First Name"
+                                />
+                            </label>
+                            <label> Last Name
+                                <input 
+                                    id="lastName"
+                                    name="lastName"
+                                    type="text"
+                                    value={lastName}
+                                    onChange={e => setLastname(e.target.value)}
+                                    placeholder="Last Name"
+                                />
+                            </label>
+                            <label> Email Address
+                                <input 
+                                    id="emailAddress"
+                                    name="emailAddress"
+                                    type="text"
+                                    value={emailAddress}
+                                    onChange={e => setEmailAddress(e.target.value)}
+                                    placeholder="Email Address"
+                                />
+                            </label>
+                            <label> Password
+                                <input 
+                                    id="password"
+                                    name="password"
+                                    type="password"
+                                    value={password}
+                                    onChange={e => setPassword(e.target.value)}
+                                    placeholder="Password"
+                                />
+                            </label>
                         </React.Fragment>
                     )}
                 />

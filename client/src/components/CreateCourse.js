@@ -15,6 +15,24 @@ export default function CreateCourse({ context }) {
 
     const submit = () => {
 
+        const course = {
+            title, 
+            description,
+            estimatedTime,
+            materialsNeeded
+        };
+
+        context.data.createCourse(course)
+            .then(errors => {
+                if (errors.length) {
+                    setErrors({ errors });
+                } else {
+                    console.log("Course has been created!")
+                    navigate('/');
+                }
+            })
+            .catch(errors => console.log(errors));
+
     }
 
     const cancel = () => {

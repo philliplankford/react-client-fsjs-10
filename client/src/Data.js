@@ -9,24 +9,23 @@ export default class Data {
     api(path, method = 'GET', body = null, requiresAuth = false, credentials = null) {
         const url = path;
         
-        const config = {
+        const options = {
             method, // since the name and value are the same it can be one
-            url,
             headers: {
                 'Content-Type': 'application/json; charset=utf-8',
             },
         };
 
         if (body !== null) {
-            config.body = JSON.stringify(body);
+            options.body = JSON.stringify(body);
         }
 
         if (requiresAuth) {
             const encodedCredentials = btoa(`${credentials.emailAddress}:${credentials.password}`);
-            config.headers['Authorization'] = `Basic ${encodedCredentials}`;
+            options.headers['Authorization'] = `Basic ${encodedCredentials}`;
         }
 
-        return axios(path, config);
+        return axios(url, options);
     }
 
     async getUser(username, password) {
@@ -41,7 +40,20 @@ export default class Data {
     }
 
     async createUser(user) {
-        const response = await this.api('/users', 'POST', user);
+        const response = await this.api('/users', 'post', user);
+        if (response.status === 201) {
+            return [];
+        } else if (response.status === 400) {
+            return response.json().then(data => {
+                return data.errors;
+            });
+        } else {
+            throw new Error();
+        }
+    }
+
+    async createCourse(course) {
+        const response = await this.api('/courses', 'POST', course, false, null);
         if (response.status === 201) {
             return [];
         } else if (response.status === 400) {
