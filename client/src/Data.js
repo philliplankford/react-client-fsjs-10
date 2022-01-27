@@ -6,7 +6,7 @@ export default class Data {
 
     /* === CLASS METHODS === */
 
-    api(path, method = 'GET', body = null, requiresAuth = false, credentials = null) {
+    api(path, method = 'GET', data = null, requiresAuth = false, credentials = null) {
         const url = path;
         
         const options = {
@@ -16,8 +16,8 @@ export default class Data {
             },
         };
 
-        if (body !== null) {
-            options.body = JSON.stringify(body);
+        if (data !== null) {
+            options.data = JSON.stringify(data);
         }
 
         if (requiresAuth) {
@@ -40,7 +40,7 @@ export default class Data {
     }
 
     async createUser(user) {
-        const response = await this.api('/users', 'post', user);
+        const response = await this.api('/users', 'POST', user);
         if (response.status === 201) {
             return [];
         } else if (response.status === 400) {

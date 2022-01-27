@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Form from './Form';
+import axios from 'axios';
 
 export default function UserSignUp({ context }) {
     const [firstName, setFirstname] = useState('');
@@ -19,19 +20,27 @@ export default function UserSignUp({ context }) {
             emailAddress,
             password,
         };
-        
-        // console.log(user);
+
+        // axios('http://localhost:5000/api/users', {
+        //     method: 'POST', 
+        //     headers : {
+        //         'Content-Type': 'application/json; charset=utf-8',
+        //     }, 
+        //     data: JSON.stringify(user)
+        // })
+
         context.data.createUser(user)
             .then( errors => {
                 if (errors.length) {
                     setErrors({ errors });
-                } else {
-                    context.actions.signIn(emailAddress, password)
-                        .then(() => {
-                            navigate('/');
-                        });
-                    console.log(`${emailAddress} is successfully signed up and authenticated`);
-                }
+                } 
+                // else {
+                //     context.actions.signIn(emailAddress, password)
+                //         .then(() => {
+                //             navigate('/');
+                //         });
+                //     console.log(`${emailAddress} is successfully signed up and authenticated`);
+                // }
             })
             .catch (err => {
                 console.log(err);
