@@ -12,19 +12,17 @@ export default function UserSignIn({ context }) {
     const submit = () => {
         context.actions.signIn(emailAddress, password)
             .then( user => {
-                if (user === null) {
-                    setErrors([`Sign-in was unsuccessful`]); //setErrors({ errors: [`Sign-in was unsuccessful`]});
-                } else {
-                    navigate(-1); // Equivilent to hitting the back button. Is that what we want?
-                }
+                console.log(`SUCCESS! ${emailAddress} is now signed in!`);
+                navigate('/'); // Equivilent to hitting the back button.
             })
             .catch ( error => {
+                console.log(error);
                 if (error.response) {
                     setErrors([error.response.data.message]);
                 } else {
+                    console.log(error.response)
                     navigate('/error');
                 }
-                // console.log(error.response.data);
             });
 
     }

@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export default function Header() {
+export default function Header({ context }) {
+        const authUser = context.authenticatedUser;
+
         return (
             <header>
                 <div className="wrap header--flex">
@@ -9,16 +11,17 @@ export default function Header() {
                         <Link to="/Courses">Courses</Link>
                     </h1>
                     <nav>
-                        {/** IF SIGNED OUT */}
-                        <ul className="header--signedout">
-                            <li><Link to="/signup">Sign Up</Link></li>
-                            <li><Link to="/signin">Sign In</Link></li>
-                        </ul>
-                        {/** IF SIGNED IN */}
-                        <ul className="header--signedin">
-                            <li>Welcome, Name!</li>
-                            <li><Link to="/signout">Sign Out</Link></li>
-                        </ul>
+                        {authUser ?
+                            <ul className="header--signedin">
+                                <li>Welcome, {authUser.firstName}!</li>
+                                <li><Link to="/signout">Sign Out</Link></li>
+                            </ul>
+                            :
+                            <ul className="header--signedout">
+                                <li><Link to="/signup">Sign Up</Link></li>
+                                <li><Link to="/signin">Sign In</Link></li>
+                            </ul>
+                        }
                     </nav>
                 </div>
             </header>

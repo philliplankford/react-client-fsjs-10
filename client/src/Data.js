@@ -21,17 +21,21 @@ export default class Data {
         }
 
         if (requiresAuth) {
-            const encodedCredentials = btoa(`${credentials.emailAddress}:${credentials.password}`);
-            options.headers['Authorization'] = `Basic ${encodedCredentials}`;
+            options.auth = {
+                username: credentials.emailAddress,
+                password: credentials.password,
+            }
+            // const encodedCredentials = btoa(`${credentials.emailAddress}:${credentials.password}`);
+            // options.headers['Authorization'] = `Basic ${encodedCredentials}`;
         }
 
         return axios(url, options);
     }
 
-    async getUser(username, password) {
-        const response = await this.api('/users', 'GET', null, true, { username, password });
+    async getUser(emailAddress, password) {
+        const response = await this.api('/users', 'GET', null, true, { emailAddress, password });
         if (response.status === 200) {
-            return response.json().then(data => data);
+            return response.data;
         } else if (response.status === 401) {
             return null;
         } else {
