@@ -21,19 +21,9 @@ export default function UserSignUp({ context }) {
             password,
         };
 
-        // axios('http://localhost:5000/api/users', {
-        //     method: 'POST', 
-        //     headers : {
-        //         'Content-Type': 'application/json; charset=utf-8',
-        //     }, 
-        //     data: JSON.stringify(user)
-        // })
-
         context.data.createUser(user)
-            .then( errors => {
-                if (errors.length) {
-                    setErrors({ errors });
-                } 
+            .then( () => {
+                    console.log(`${firstName} is signed up!`);
                 // else {
                 //     context.actions.signIn(emailAddress, password)
                 //         .then(() => {
@@ -42,9 +32,12 @@ export default function UserSignUp({ context }) {
                 //     console.log(`${emailAddress} is successfully signed up and authenticated`);
                 // }
             })
-            .catch (err => {
-                console.log(err);
-                navigate('/error');
+            .catch (error => {
+                if (error.response) {
+                    setErrors(error.response.data.errors)
+                } else {
+                    navigate('/error');
+                }
             });
     }
 
