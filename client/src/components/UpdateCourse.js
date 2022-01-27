@@ -10,7 +10,7 @@ export default function CreateCourse({ context }) {
     const [materialsNeeded, setMaterialsNeeded] = useState("");
     const [userId, setUserId] = useState(0);
     const [errors, setErrors] = useState([]);
-
+    
     const navigate = useNavigate();
 
     useEffect(() => {

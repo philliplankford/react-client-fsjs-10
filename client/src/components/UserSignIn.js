@@ -3,14 +3,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import Form from './Form';
 
 export default function UserSignIn({ context }) {
-    const [emailaddress, setEmailAddress] = useState('');
+    const [emailAddress, setEmailAddress] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState([]);
 
     const navigate = useNavigate();
 
     const submit = () => {
-        context.actions.signIn(emailaddress, password)
+        context.actions.signIn(emailAddress, password)
             .then( user => {
                 if (user === null) {
                     setErrors([`Sign-in was unsuccessful`]); //setErrors({ errors: [`Sign-in was unsuccessful`]});
@@ -18,10 +18,14 @@ export default function UserSignIn({ context }) {
                     navigate(-1); // Equivilent to hitting the back button. Is that what we want?
                 }
             })
-            .catch ( err => {
-                console.log(err);
-                navigate('/error')
-            })
+            .catch ( error => {
+                if (error.response) {
+                    setErrors([error.response.data.message]);
+                } else {
+                    navigate('/error');
+                }
+                // console.log(error.response.data);
+            });
 
     }
 
@@ -40,22 +44,26 @@ export default function UserSignIn({ context }) {
                     submitButtonText="Sign In"
                     elements={() => (
                         <React.Fragment>
-                            <input 
-                                id="emailAddress"
-                                name="emailAddress"
-                                type="text"
-                                value={emailaddress}
-                                onChange={e => setEmailAddress(e.target.value)}
-                                placeholder="Email Address"
-                            />
-                            <input 
-                                id="password"
-                                name="password"
-                                type="password"
-                                value={password}
-                                onChange={e => setPassword(e.target.value)}
-                                placeholder="Password"
-                            />
+                            <label>Email Address
+                                <input 
+                                    id="emailAddress"
+                                    name="emailAddress"
+                                    type="text"
+                                    value={emailAddress}
+                                    onChange={e => setEmailAddress(e.target.value)}
+                                    placeholder="Email Address"
+                                />
+                            </label>
+                            <label>Password
+                                <input 
+                                    id="password"
+                                    name="password"
+                                    type="password"
+                                    value={password}
+                                    onChange={e => setPassword(e.target.value)}
+                                    placeholder="Password"
+                                />
+                            </label>
                         </React.Fragment>
                     )}
                 />
