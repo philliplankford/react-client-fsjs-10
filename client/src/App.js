@@ -3,7 +3,8 @@ import './styles/global.css';
 import {
   BrowserRouter,
   Routes,
-  Route
+  Route,
+  Navigate
 } from 'react-router-dom';
 import withContext from './Context';
 
@@ -23,6 +24,8 @@ import Error from './components/Error';
 import Forbidden from './components/Forbidden';
 import NotFound from './components/NotFound';
 
+import PrivateRoute from './PrivateRoute';
+
 /* === CONTEXT SUBSCRIPTIONS === */
 // subscribe componenets to context 
 // Context keeps track of the authenticated user at the top level
@@ -39,6 +42,9 @@ const CourseDetailWithContext = withContext(CourseDetail);
 const CreateCourseWithContext = withContext(CreateCourse);
 const UpdateCourseWithContext = withContext(UpdateCourse);
 
+// Private Route 
+const PrivateRouteWithContext = withContext(PrivateRoute);
+
 /* === APP === */
 
 function App () {
@@ -49,20 +55,28 @@ function App () {
         <HeaderWithContext />
         <main>
           <Routes>
-            <Route path="/" element={<CoursesWithContext />} />
-            <Route path="signin" element={<UserSignInWithContext />} />
-            <Route path="signup" element={<UserSignUpWithContext />} />
-            <Route path="signout" element={<UserSignOutWithContext />} />
-            <Route path="courses" element={<CoursesWithContext />}>
-              <Route path=":id" element={<CourseDetailWithContext />} >
-                <Route path="update" element={<UpdateCourseWithContext />} />
-                <Route path="delete" element={<CourseDetail />} />
+            <Route path="/">
+              <Route index element={<CoursesWithContext />} />
+              <Route path="signin" element={<UserSignInWithContext />} />
+              <Route path="signup" element={<UserSignUpWithContext />} />
+              <Route path="signout" element={<UserSignOutWithContext />} />
+              <Route path="courses">
+                <Route index element={<CoursesWithContext/>} />
+                <Route path=":id">
+                  <Route index element={<CourseDetailWithContext />} />
+                  <Route path="update" element={<UpdateCourseWithContext />} />
+                  <Route path="delete" element={<CourseDetail />} />
+                </Route>
+                <Route path="create" element={
+                  <PrivateRouteWithContext redirectTo={"/signin"}>
+                    <CreateCourseWithContext />
+                  </PrivateRouteWithContext>
+                } />
               </Route>
-              <Route path="create" element={<CreateCourseWithContext />} />
+              <Route path="error" element={<Error />} />
+              <Route path="forbidden" element={<Forbidden />} />
+              <Route path="*" element={<NotFound />} />
             </Route>
-            <Route path="error" element={<Error />} />
-            <Route path="forbidden" element={<Forbidden />} />
-            <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
       </BrowserRouter>
