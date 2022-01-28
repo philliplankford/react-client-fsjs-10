@@ -1,24 +1,69 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Form from './Form';
 
 
-export default function CreateCourse({ context }) {
+export default function UpdateCourse({ context }) {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [estimatedTime, setEstimatedTime] = useState("");
     const [materialsNeeded, setMaterialsNeeded] = useState("");
+    const [author, setAuthor] = useState("");
     const [userId, setUserId] = useState(0);
     const [errors, setErrors] = useState([]);
-    
+
+    const { id } = useParams();
+    const [ course, setCourse ] = useState({});
+
     const navigate = useNavigate();
 
     useEffect(() => {
-
+        context.data.api(`/courses/${id}`)
+            .then(response => {
+                setTitle(response.data.title)
+                setDescription(response.data.description)
+                setEstimatedTime(response.data.estimatedTime)
+                setMaterialsNeeded(response.data.materialsNeeded)
+                setUserId(response.data.userId)
+                setAuthor(`${response.data.User.firstName} ${response.data.User.lastName}`)
+            })
+            .catch (error => {
+                if (error.status === 404) {
+                    navigate('/notfound');
+                } else {
+                    console.log(error);
+                    navigate('/error');
+                }
+            })
     },[]);
 
     const submit = () => {
 
+        const course = {
+            title, 
+            description,
+            estimatedTime,
+            materialsNeeded,
+            userId
+        };
+        
+        const emailAddress = context.authenticatedUser.emailAddress;
+        const password = context.authenticatedUser.password;
+
+        context.data.updateCourse(id, course, emailAddress, password)
+            .then(() => {
+                console.log("Course has been updated!")
+                navigate(`/courses/${id}`);
+            })
+            .catch (error => {
+                if (error.response.status === 401) {
+                    navigate('/forbidden');
+                } else if (error.response) {
+                    setErrors(error.response.data.errors)
+                } else {
+                    navigate('/error');
+                }
+            });
     }
 
     const cancel = () => {
@@ -28,19 +73,13 @@ export default function CreateCourse({ context }) {
         return (
             <React.Fragment>
                 <div className="wrap">
-                    <h2>Create Course</h2>
-                    <div className="validation--errors">
-                        <h3>Validation Errors</h3>
-                        <ul>
-                            <li>Error</li>
-                        </ul>
-                    </div>
+                    <h2>Update Course</h2>
 
                     <Form
                         cancel={cancel}
                         errors={errors}
                         submit={submit}
-                        submitButtonText="Create Course"
+                        submitButtonText="Update Course"
                         elements={() => (
                             <div className="main--flex">
                                 <div>
@@ -52,7 +91,7 @@ export default function CreateCourse({ context }) {
                                         onChange={e => setTitle(e.target.value)}
                                         placeholder="Course Title"
                                     />
-                                    <p>By Author</p>
+                                    <p>By: {author}</p>
                                     <textarea 
                                         id="courseDescription"
                                         name="courseDescription"

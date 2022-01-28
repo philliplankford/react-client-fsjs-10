@@ -1,28 +1,33 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 
 function CourseDetail({ context }) {
     const { id } = useParams();
-
     const [ course, setCourse ] = useState({});
 
+    const navigate = useNavigate();
+
     useEffect(() => {
-        const api = context.data.api;
-        const fetchCourse = async () => {
-            const response = await api(`/courses/${id}`);
-            setCourse(response.data);
-        };
-
-        fetchCourse();
-
-    }, [id]);
+        context.data.api(`/courses/${id}`)
+            .then(response => {
+                setCourse(response.data);
+            })
+            .catch (error => {
+                if (error.status === 404) {
+                    navigate('/notfound');
+                } else {
+                    console.log(error);
+                    navigate('/error');
+                }
+            })
+    }, []);
 
     return (
         <React.Fragment>
             <div className="actions--bar">
                 <div className="wrap">
-                    { /*
+                    {/* {
                         context.authenticatedUser.emailAddress === course.User.emailAddress 
                         ? 
                             <React.Fragment>
@@ -30,7 +35,7 @@ function CourseDetail({ context }) {
                                 <Link className="button" to={`/courses/${id}/delete`}>Delete Course</Link>
                             </React.Fragment> 
                         : null
-                    */ }
+                    } */}
                     <Link className="button button-secondary" to={`/`}>Return to List</Link>
                 </div>
             </div>
@@ -42,11 +47,7 @@ function CourseDetail({ context }) {
                         <div>
                             <h3 className="course--detail--title">Course</h3>
                             <h4 className="course--name">{course.title}</h4>
-                            { 
-                                /* course.User.emailAddress ?
-                                    <p>By: {course.User.firstName} {course.User.lastName}</p> 
-                                    : null */
-                            }
+                            {/* <p>By: {course.User.firstName} {course.User.lastName}</p> */}
                             <ReactMarkdown>{course.description}</ReactMarkdown>
                         </div>
                         <div>
