@@ -13,11 +13,11 @@ export class Provider extends Component {
     constructor() {
         super();
         this.data = new Data();
-        //this.cookie = Cookies.get('authenticatedUser');
+        this.cookie = Cookies.get('authenticatedUser');
 
-        // this.state = {
-        //     authenticatedUser: null, // this.cookie ? JSON.parse(this.cookie) : null
-        // };
+        this.state = {
+            authenticatedUser: this.cookie ? JSON.parse(this.cookie) : null
+        };
     }
 
     render() {
@@ -42,19 +42,22 @@ export class Provider extends Component {
     signIn = async (emailAddress, password) => {
         const user = await this.data.getUser(emailAddress, password); // returns object holding user and pass
         if (user !== null) {
+            user.password = password
             this.setState(() => {
                 return {
                     authenticatedUser: user,
                 };
             });
-            //Cookies.set('authenticatedUser', JSON.stringify(user), { expires: 1 }); // 1 day expiration
+            Cookies.set('authenticatedUser', JSON.stringify(user), { expires: 1 });
+            console.log(Cookies.get('authenticatedUser'));
+            // name of the cookies, the value is stringified user object, expirations option is set for 1 day
         }
         return user;
     }
 
     signOut = () => {
         this.setState({ authenticatedUser: null });
-        //Cookies.remove('authenticatedUser');
+        Cookies.remove('authenticatedUser');
     }
 }
 

@@ -5,11 +5,10 @@ import ReactMarkdown from 'react-markdown';
 function CourseDetail({ context }) {
     const { id } = useParams();
 
-    const [ course, setCourse ] = useState(0);
+    const [ course, setCourse ] = useState({});
 
     useEffect(() => {
         const api = context.data.api;
-        
         const fetchCourse = async () => {
             const response = await api(`/courses/${id}`);
             setCourse(response.data);
@@ -23,8 +22,15 @@ function CourseDetail({ context }) {
         <React.Fragment>
             <div className="actions--bar">
                 <div className="wrap">
-                    <Link className="button" to={`/courses/${id}/update`}>Update Course</Link>
-                    <Link className="button" to={`/courses/${id}/delete`}>Delete Course</Link>
+                    { /*
+                        context.authenticatedUser.emailAddress === course.User.emailAddress 
+                        ? 
+                            <React.Fragment>
+                                <Link className="button" to={`/courses/${id}/update`}>Update Course</Link>
+                                <Link className="button" to={`/courses/${id}/delete`}>Delete Course</Link>
+                            </React.Fragment> 
+                        : null
+                    */ }
                     <Link className="button button-secondary" to={`/`}>Return to List</Link>
                 </div>
             </div>
@@ -36,8 +42,11 @@ function CourseDetail({ context }) {
                         <div>
                             <h3 className="course--detail--title">Course</h3>
                             <h4 className="course--name">{course.title}</h4>
-                            {/* <p>{course.User.firstName}</p> */}
-
+                            { 
+                                /* course.User.emailAddress ?
+                                    <p>By: {course.User.firstName} {course.User.lastName}</p> 
+                                    : null */
+                            }
                             <ReactMarkdown>{course.description}</ReactMarkdown>
                         </div>
                         <div>

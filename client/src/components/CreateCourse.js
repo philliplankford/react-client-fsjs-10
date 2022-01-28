@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Form from './Form';
 
@@ -13,23 +13,33 @@ export default function CreateCourse({ context }) {
 
     const navigate = useNavigate();
 
+    useEffect( () => {
+        setUserId(context.authenticatedUser.userId);
+    },[context.authenticatedUser.userId])
+
     const submit = () => {
 
         const course = {
             title, 
             description,
             estimatedTime,
-            materialsNeeded
+            materialsNeeded,
+            userId
         };
+        
+        const emailAddress = context.authenticatedUser.emailAddress;
+        const password = context.authenticatedUser.password;
 
-        context.data.createCourse(course)
-            .then((response) => {
+        context.data.createCourse(course, emailAddress, password)
+            .then(() => {
                 console.log("Course has been created!")
                 navigate('/');
             })
             .catch (error => {
                 if (error.response.status === 401) {
                     navigate('/forbidden');
+                } else if (error.response) {
+                    setErrors(error.response.data.errors)
                 } else {
                     navigate('/error');
                 }
@@ -63,7 +73,7 @@ export default function CreateCourse({ context }) {
                                             placeholder="Course Title"
                                         />
                                     </label>
-                                    <p>Author</p>
+                                    <p>By: {context.authenticatedUser.firstName} {context.authenticatedUser.lastName}</p>
                                     <label> Course Description
                                         <textarea 
                                             id="courseDescription"
