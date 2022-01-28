@@ -64,7 +64,11 @@ function App () {
                 <Route index element={<CoursesWithContext/>} />
                 <Route path=":id">
                   <Route index element={<CourseDetailWithContext />} />
-                  <Route path="update" element={<UpdateCourseWithContext />} />
+                  <Route path="update" element={
+                    <PrivateRouteWithContext redirectTo={"/signin"}>
+                      <UpdateCourseWithContext />
+                    </PrivateRouteWithContext>
+                  } />
                   <Route path="delete" element={<CourseDetail />} />
                 </Route>
                 <Route path="create" element={
