@@ -24,13 +24,11 @@ export default function UserSignUp({ context }) {
         context.data.createUser(user)
             .then( () => {
                     console.log(`${firstName} is signed up!`);
-                // else {
-                //     context.actions.signIn(emailAddress, password)
-                //         .then(() => {
-                //             navigate('/');
-                //         });
-                //     console.log(`${emailAddress} is successfully signed up and authenticated`);
-                // }
+                    context.actions.signIn(emailAddress, password)
+                        .then(() => {
+                            navigate('/');
+                        });
+                    console.log(`${emailAddress} is signed up and authenticated!`)
             })
             .catch (error => {
                 if (error.response) {

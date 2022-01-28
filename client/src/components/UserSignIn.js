@@ -13,7 +13,7 @@ export default function UserSignIn({ context }) {
         context.actions.signIn(emailAddress, password)
             .then( user => {
                 console.log(`SUCCESS! ${emailAddress} is now signed in!`);
-                navigate('/'); // Equivilent to hitting the back button.
+                navigate(-1); // Equivilent to hitting the back button.
             })
             .catch ( error => {
                 console.log(error);
