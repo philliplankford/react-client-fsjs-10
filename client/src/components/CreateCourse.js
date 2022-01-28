@@ -23,15 +23,17 @@ export default function CreateCourse({ context }) {
         };
 
         context.data.createCourse(course)
-            .then(errors => {
-                if (errors.length) {
-                    setErrors({ errors });
-                } else {
-                    console.log("Course has been created!")
-                    navigate('/');
-                }
+            .then((response) => {
+                console.log("Course has been created!")
+                navigate('/');
             })
-            .catch(errors => console.log(errors));
+            .catch (error => {
+                if (error.response.status === 401) {
+                    navigate('/forbidden');
+                } else {
+                    navigate('/error');
+                }
+            });
 
     }
 
@@ -43,13 +45,6 @@ export default function CreateCourse({ context }) {
             <React.Fragment>
                 <div className="wrap">
                     <h2>Create Course</h2>
-                    <div className="validation--errors">
-                        <h3>Validation Errors</h3>
-                        <ul>
-                            <li>Error</li>
-                        </ul>
-                    </div>
-
                     <Form
                         cancel={cancel}
                         errors={errors}
@@ -58,39 +53,47 @@ export default function CreateCourse({ context }) {
                         elements={() => (
                             <div className="main--flex">
                                 <div>
-                                    <input 
-                                        id="courseTitle"
-                                        name="courseTitle"
-                                        type="text"
-                                        value={title}
-                                        onChange={e => setTitle(e.target.value)}
-                                        placeholder="Course Title"
-                                    />
-                                    <p>By Author</p>
-                                    <textarea 
-                                        id="courseDescription"
-                                        name="courseDescription"
-                                        value={description}
-                                        onChange={e => setDescription(e.target.value)}
-                                        placeholder="Course Description"
-                                    />
+                                    <label> Course Title
+                                        <input 
+                                            id="courseTitle"
+                                            name="courseTitle"
+                                            type="text"
+                                            value={title}
+                                            onChange={e => setTitle(e.target.value)}
+                                            placeholder="Course Title"
+                                        />
+                                    </label>
+                                    <p>Author</p>
+                                    <label> Course Description
+                                        <textarea 
+                                            id="courseDescription"
+                                            name="courseDescription"
+                                            value={description}
+                                            onChange={e => setDescription(e.target.value)}
+                                            placeholder="Course Description"
+                                        />
+                                    </label> 
                                 </div>
                                 <div>
-                                    <input
-                                        id="estimatedTime"
-                                        name="estimatedTime"
-                                        type="text"
-                                        value={estimatedTime}
-                                        onChange={e => setEstimatedTime(e.target.value)}
-                                        placeholder="Estimated Time"
-                                    />
-                                    <textarea
-                                        id="materialsNeeded"
-                                        name="materialsNeeded"
-                                        value={materialsNeeded}
-                                        onChange={e => setMaterialsNeeded(e.target.value)}
-                                        placeholder="Materials Needed"
-                                    />
+                                    <label>Estimated Time
+                                        <input
+                                            id="estimatedTime"
+                                            name="estimatedTime"
+                                            type="text"
+                                            value={estimatedTime}
+                                            onChange={e => setEstimatedTime(e.target.value)}
+                                            placeholder="Estimated Time"
+                                        />
+                                    </label>
+                                    <label>Materials Needed
+                                        <textarea
+                                            id="materialsNeeded"
+                                            name="materialsNeeded"
+                                            value={materialsNeeded}
+                                            onChange={e => setMaterialsNeeded(e.target.value)}
+                                            placeholder="Materials Needed"
+                                        />
+                                    </label>
                                 </div>
                             </div>
                         )}

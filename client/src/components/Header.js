@@ -8,7 +8,7 @@ export default function Header({ context }) {
             <header>
                 <div className="wrap header--flex">
                     <h1 className="header--logo">
-                        <Link to="/Courses">Courses</Link>
+                        <Link to="/courses">Courses</Link>
                     </h1>
                     <nav>
                         {authUser ?

@@ -53,7 +53,7 @@ function App () {
             <Route path="signin" element={<UserSignInWithContext />} />
             <Route path="signup" element={<UserSignUpWithContext />} />
             <Route path="signout" element={<UserSignOutWithContext />} />
-            <Route path="courses">
+            <Route path="courses" element={<CoursesWithContext />}>
               <Route path=":id" element={<CourseDetailWithContext />} >
                 <Route path="update" element={<UpdateCourseWithContext />} />
                 <Route path="delete" element={<CourseDetail />} />
