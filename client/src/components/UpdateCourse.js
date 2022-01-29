@@ -20,12 +20,16 @@ export default function UpdateCourse({ context }) {
     useEffect(() => {
         context.data.api(`/courses/${id}`)
             .then(response => {
-                setTitle(response.data.title)
-                setDescription(response.data.description)
-                setEstimatedTime(response.data.estimatedTime)
-                setMaterialsNeeded(response.data.materialsNeeded)
-                setUserId(response.data.userId)
-                setAuthor(`${response.data.User.firstName} ${response.data.User.lastName}`)
+                if (response.data.userId === context.authenticatedUser.userId) {
+                    setTitle(response.data.title)
+                    setDescription(response.data.description)
+                    setEstimatedTime(response.data.estimatedTime)
+                    setMaterialsNeeded(response.data.materialsNeeded)
+                    setUserId(response.data.userId)
+                    setAuthor(`${response.data.User.firstName} ${response.data.User.lastName}`)
+                } else {
+                    navigate('/forbidden');
+                }
             })
             .catch (error => {
                 if (error.response.status === 404) {
