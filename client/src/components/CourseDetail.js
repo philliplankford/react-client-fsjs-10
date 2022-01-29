@@ -5,7 +5,7 @@ import ReactMarkdown from 'react-markdown';
 function CourseDetail({ context }) {
     const { id } = useParams();
     const [ course, setCourse ] = useState({});
-    const [ user, setUser ] = useState({}); // for some reason can't pull user object from course
+    const [ user, setUser ] = useState({}); // can't access User object properties within course for some reason
 
     const navigate = useNavigate();
 
@@ -34,7 +34,7 @@ function CourseDetail({ context }) {
                         ? 
                             <React.Fragment>
                                 <Link className="button" to={`/courses/${id}/update`}>Update Course</Link>
-                                <Link className="button" to={`/courses/${id}/delete`}>Delete Course</Link>
+                                <Link className="button" to={`/`} onClick={ (e) => context.data.deleteCourse(id, context.authenticatedUser.emailAddress, context.authenticatedUser.password) }>Delete Course</Link>
                             </React.Fragment> 
                         : null
                     }
