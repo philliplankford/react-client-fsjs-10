@@ -29,7 +29,7 @@ function CourseDetail({ context }) {
         <React.Fragment>
             <div className="actions--bar">
                 <div className="wrap">
-                    {
+                    { context.authenticatedUser ?
                         context.authenticatedUser.emailAddress === user.emailAddress 
                         ? 
                             <React.Fragment>
@@ -37,6 +37,7 @@ function CourseDetail({ context }) {
                                 <Link className="button" to={`/`} onClick={ (e) => context.data.deleteCourse(id, context.authenticatedUser.emailAddress, context.authenticatedUser.password) }>Delete Course</Link>
                             </React.Fragment> 
                         : null
+                    : null
                     }
                     <Link className="button button-secondary" to={`/`}>Return to List</Link>
                 </div>
