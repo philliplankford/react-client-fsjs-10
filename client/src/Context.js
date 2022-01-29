@@ -31,7 +31,9 @@ export class Provider extends Component {
                 signOut: this.signOut
             },
         };
-
+        // pass the Provider the authed user, data, and acrions through props 
+        // that will be available to any components 
+        // wrapped withContext
         return (
             <Context.Provider value={value}>
                 {this.props.children}
@@ -39,6 +41,7 @@ export class Provider extends Component {
         );
     }
 
+    // class functions
     signIn = async (emailAddress, password) => {
         const user = await this.data.getUser(emailAddress, password); // returns object holding user and pass
         if (user !== null) {
@@ -49,7 +52,7 @@ export class Provider extends Component {
                 };
             });
             Cookies.set('authenticatedUser', JSON.stringify(user), { expires: 1 });
-            // name of the cookies, the value is stringified user object, expirations option is set for 1 day
+            // expiration option is set for 1 day
         }
         return user;
     }

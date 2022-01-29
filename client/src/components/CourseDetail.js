@@ -34,7 +34,15 @@ function CourseDetail({ context }) {
                         ? 
                             <React.Fragment>
                                 <Link className="button" to={`/courses/${id}/update`}>Update Course</Link>
-                                <Link className="button" to={`/`} onClick={ (e) => context.data.deleteCourse(id, context.authenticatedUser.emailAddress, context.authenticatedUser.password) }>Delete Course</Link>
+                                <a className="button" href={'/'} // when using Link it goes back to when the course still existed
+                                onClick={ 
+                                    (e) => 
+                                    context.data.deleteCourse(
+                                        id, 
+                                        context.authenticatedUser.emailAddress, 
+                                        context.authenticatedUser.password
+                                        )
+                                }>Delete Course</a>
                             </React.Fragment> 
                         : null
                     : null

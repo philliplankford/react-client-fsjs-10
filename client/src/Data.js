@@ -10,7 +10,7 @@ export default class Data {
         const url = path;
         
         const options = {
-            method, // since the name and value are the same it can be one
+            method, // since the name and value are the same it can be one reference
             headers: {
                 'Content-Type': 'application/json; charset=utf-8',
             },
@@ -21,7 +21,7 @@ export default class Data {
         }
 
         if (requiresAuth) {
-            options.auth = {
+            options.auth = { // axios has a specific basic auth option
                 username: credentials.emailAddress,
                 password: credentials.password,
             }
@@ -45,7 +45,7 @@ export default class Data {
         const response = await this.api('/users', 'POST', user);
         if (response.status === 201) {
             return [];
-        } else if (response.status === 400) {
+        } else if (response.status === 400) { // 400 is a client side error
             return response.error.response.data;
         } else {
             throw new Error();

@@ -13,7 +13,6 @@ export default function UpdateCourse({ context }) {
     const [errors, setErrors] = useState([]);
 
     const { id } = useParams();
-    // const [ course, setCourse ] = useState({});
 
     const navigate = useNavigate();
 
@@ -51,7 +50,6 @@ export default function UpdateCourse({ context }) {
             userId
         };
 
-        console.log(userId);
         const emailAddress = context.authenticatedUser.emailAddress;
         const password = context.authenticatedUser.password;
 
