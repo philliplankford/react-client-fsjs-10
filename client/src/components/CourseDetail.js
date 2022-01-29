@@ -16,7 +16,7 @@ function CourseDetail({ context }) {
                 setUser(response.data.User);
             })
             .catch (error => {
-                if (error.status === 404) {
+                if (error.response.status === 404) {
                     navigate('/notfound');
                 } else {
                     console.log(error);

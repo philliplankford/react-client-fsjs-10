@@ -18,7 +18,8 @@ export default function UserSignIn({ context }) {
             .catch ( error => {
                 console.log(error);
                 if (error.response) {
-                    setErrors([error.response.data.message]);
+                    console.log(error.response);
+                    setErrors(["Incorrect Username or Password. Or you do not have an account with us"]);
                 } else {
                     console.log(error.response)
                     navigate('/error');

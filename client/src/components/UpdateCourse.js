@@ -13,7 +13,7 @@ export default function UpdateCourse({ context }) {
     const [errors, setErrors] = useState([]);
 
     const { id } = useParams();
-    const [ course, setCourse ] = useState({});
+    // const [ course, setCourse ] = useState({});
 
     const navigate = useNavigate();
 
@@ -28,7 +28,7 @@ export default function UpdateCourse({ context }) {
                 setAuthor(`${response.data.User.firstName} ${response.data.User.lastName}`)
             })
             .catch (error => {
-                if (error.status === 404) {
+                if (error.response.status === 404) {
                     navigate('/notfound');
                 } else {
                     console.log(error);
@@ -46,7 +46,8 @@ export default function UpdateCourse({ context }) {
             materialsNeeded,
             userId
         };
-        
+
+        console.log(userId);
         const emailAddress = context.authenticatedUser.emailAddress;
         const password = context.authenticatedUser.password;
 
@@ -56,7 +57,7 @@ export default function UpdateCourse({ context }) {
                 navigate(`/courses/${id}`);
             })
             .catch (error => {
-                if (error.response.status === 401) {
+                if (error.response.status === 401 || error.response.status === 403) {
                     navigate('/forbidden');
                 } else if (error.response) {
                     setErrors(error.response.data.errors)
@@ -105,14 +106,14 @@ export default function UpdateCourse({ context }) {
                                         id="estimatedTime"
                                         name="estimatedTime"
                                         type="text"
-                                        value={estimatedTime}
+                                        value={estimatedTime || ""}
                                         onChange={e => setEstimatedTime(e.target.value)}
                                         placeholder="Estimated Time"
                                     />
                                     <textarea
                                         id="materialsNeeded"
                                         name="materialsNeeded"
-                                        value={materialsNeeded}
+                                        value={materialsNeeded || ""}
                                         onChange={e => setMaterialsNeeded(e.target.value)}
                                         placeholder="Materials Needed"
                                     />
