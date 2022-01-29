@@ -5,6 +5,7 @@ import ReactMarkdown from 'react-markdown';
 function CourseDetail({ context }) {
     const { id } = useParams();
     const [ course, setCourse ] = useState({});
+    const [ user, setUser ] = useState({}); // for some reason can't pull user object from course
 
     const navigate = useNavigate();
 
@@ -12,6 +13,7 @@ function CourseDetail({ context }) {
         context.data.api(`/courses/${id}`)
             .then(response => {
                 setCourse(response.data);
+                setUser(response.data.User);
             })
             .catch (error => {
                 if (error.status === 404) {
@@ -27,15 +29,15 @@ function CourseDetail({ context }) {
         <React.Fragment>
             <div className="actions--bar">
                 <div className="wrap">
-                    {/* {
-                        context.authenticatedUser.emailAddress === course.User.emailAddress 
+                    {
+                        context.authenticatedUser.emailAddress === user.emailAddress 
                         ? 
                             <React.Fragment>
                                 <Link className="button" to={`/courses/${id}/update`}>Update Course</Link>
                                 <Link className="button" to={`/courses/${id}/delete`}>Delete Course</Link>
                             </React.Fragment> 
                         : null
-                    } */}
+                    }
                     <Link className="button button-secondary" to={`/`}>Return to List</Link>
                 </div>
             </div>
@@ -47,7 +49,7 @@ function CourseDetail({ context }) {
                         <div>
                             <h3 className="course--detail--title">Course</h3>
                             <h4 className="course--name">{course.title}</h4>
-                            {/* <p>By: {course.User.firstName} {course.User.lastName}</p> */}
+                            <p>By: {user.firstName} {user.lastName}</p>
                             <ReactMarkdown>{course.description}</ReactMarkdown>
                         </div>
                         <div>
